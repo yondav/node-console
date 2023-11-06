@@ -1,0 +1,14 @@
+{
+	"recommendations": [
+		"GitHub.vscode-pull-request-github",
+		"ZainChen.json",
+		"dbaeumer.vscode-eslint",
+		"eamodio.gitlens",
+		"editorconfig.editorconfig",
+		"konstantin.wrapSelection",
+		"mikestead.dotenv",
+		"planbcoding.vscode-react-refactor",
+		"sburg.vscode-javascript-booster",
+		"yondav.vibe"
+	]
+}
