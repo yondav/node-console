@@ -93,14 +93,20 @@ else {
       .toString()
       .trim().length > 0;
 
+  console.log(hasChanges);
+
   // Commit changes only if there are changes
   if (hasChanges) {
     execSync(`git add -A && git commit -m "chore: release ${releaseVersion}"`, {
       cwd: resolve(__dirname, '..'),
     });
 
+    console.log('commited');
+
     execSync(`git push origin main --follow-tags`, {
       cwd: resolve(__dirname, '..'),
     });
+
+    console.log('pushed');
   }
 }
