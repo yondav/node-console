@@ -89,25 +89,14 @@ else if (!compareVersions()) {
 }
 // If all checks pass, create a release commit and update version
 else {
-  const hasChanges =
-    execSync('git status --porcelain', { cwd: resolve(__dirname, '..') })
-      .toString()
-      .trim().length > 0;
-
-  console.log(hasChanges);
-
-  // Commit changes only if there are changes
-  if (hasChanges) {
-    execSync(`git add -A && git commit -m "chore: release ${releaseVersion}"`, {
+  execSync(
+    `git add -A && git commit --allow-empty -m "chore: release ${releaseVersion}"`,
+    {
       cwd: resolve(__dirname, '..'),
-    });
+    }
+  );
 
-    console.log('commited');
-
-    execSync(`git push origin main --follow-tags`, {
-      cwd: resolve(__dirname, '..'),
-    });
-
-    console.log('pushed');
-  }
+  execSync(`git push origin main --follow-tags`, {
+    cwd: resolve(__dirname, '..'),
+  });
 }

@@ -28,7 +28,7 @@
     "test:cov": "yarn run pretest jest --coverage",
     "test:types": "tsc --noEmit",
     "clean": "rimraf -rf ./dist",
-    "release": "yarn run build && ts-node scripts/release.ts",
+    "release": "ts-node scripts/release.ts",
     "git:alias": "git config alias.cz 'npx cz'",
     "git:hookspath": "git config core.hooksPath .githooks",
     "lint": "eslint \"**/*.{ts,tsx}\"",
