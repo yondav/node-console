@@ -1,1 +1,3 @@
-export { default as NodeLogger } from './services/service.nodeLogger';
+import NodeLogger from './services/service.nodeLogger';
+
+export default NodeLogger;
