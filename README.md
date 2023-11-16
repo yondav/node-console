@@ -4,7 +4,7 @@
 
 <div align="center">
   <h1 align="center">
-    node-console  <span style="font-size: 12px; color: grey;">v1.0.0</span>
+    pretty-node-logs  <span style="font-size: 12px; color: grey;">v1.0.0</span>
   </h1>
   <p>A prettier way to print messages to your node console.</p>
 </div>
@@ -41,9 +41,9 @@ The motivation for this project is to offer a simple solution to printing well f
 ## Installation
 
 ```
-npm install --save-dev node-console
+npm install --save-dev pretty-node-logs
 
-yarn add --dev node-console
+yarn add --dev pretty-node-logs
 ```
 
   <p align="right" style="color: #5ce087;">
@@ -56,9 +56,9 @@ yarn add --dev node-console
 
 ```javascript
 // ESM
-import NodeLogger from 'node-console';
+import NodeLogger from 'pretty-node-logs';
 // CJS
-const NodeLogger = require('node-console');
+const NodeLogger = require('pretty-node-logs');
 
 const logger = new NodeLogger();
 ```
