@@ -38,35 +38,60 @@ function compareVersions() {
 }
 
 // Check if the release version is provided
-if (!releaseVersion)
-  console.error(colors.red, 'Error: Please provide a valid version number', colors.reset);
+if (!releaseVersion) {
+  // Check if it's running in GitHub Actions
+  if (process.env.GITHUB_ACTIONS) {
+    // Extract tag name from GITHUB_REF
+    const tag = process.env.GITHUB_REF?.replace('refs/tags/', '');
+    if (tag) {
+      execSync(`npm version ${tag} -m "chore: release ${tag}"`, {
+        cwd: resolve(__dirname, '..'),
+      });
+
+      // Generate the changelog
+      execSync(`yarn run changelog`, {
+        cwd: resolve(__dirname, '..'),
+      });
+
+      // Commit the changes
+      execSync(`git add -A && git commit -m "chore: release ${tag}"`, {
+        cwd: resolve(__dirname, '..'),
+      });
+
+      console.log(`Released version: ${tag}`);
+    } else {
+      console.error(
+        colors.red,
+        'Error: Please provide a valid version number',
+        colors.reset
+      );
+    }
+  } else {
+    console.error(
+      colors.red,
+      'Error: Please provide a valid version number',
+      colors.reset
+    );
+  }
+}
 // Check if the release version is a valid version number
-else if (!validVersion.test(releaseVersion))
+else if (!validVersion.test(releaseVersion)) {
   console.error(colors.red, 'Error: Invalid version number', colors.reset);
+}
 // Check if the release version is greater than the current version
-else if (!compareVersions())
+else if (!compareVersions()) {
   console.error(
     colors.red,
     `Error: release version must be greater than the current version: ${currentVersion}`,
     colors.reset
   );
+}
 // If all checks pass, create a release commit and update version
 else {
-  execSync(`npm version ${releaseVersion} -m "chore: release ${releaseVersion}"`, {
-    cwd: resolve(__dirname, '..'),
-  });
-
-  // Generate the changelog
-  execSync(`yarn run changelog`, {
-    cwd: resolve(__dirname, '..'),
-  });
-
-  // Commit the changes
   execSync(`git add -A && git commit -m "chore: release ${releaseVersion}"`, {
     cwd: resolve(__dirname, '..'),
   });
 
-  // Push the changes
   execSync(`git push origin main --follow-tags`, {
     cwd: resolve(__dirname, '..'),
   });
