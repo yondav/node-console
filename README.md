@@ -54,7 +54,7 @@ yarn add --dev node-console
 
 ### Default Configuration
 
-```
+```javascript
 // ESM
 import NodeLogger from 'node-console';
 // CJS
@@ -63,55 +63,55 @@ const NodeLogger = require('node-console');
 const logger = new NodeLogger();
 ```
 
-```
+```javascript
 defaultLogger.print('black', 'green', 'Custom colored print');
 ```
 
 ![logger.print()](./assets/print.png)
 
-```
+```javascript
 logger.log('This is a log');
 logger.log('foo', 'bar');
 ```
 
 ![logger.log()](./assets/defaultLog.png)
 
-```
+```javascript
 logger.warn('This is a warning');
 logger.warn('foo', 'bar');
 ```
 
 ![logger.warn()](./assets/defaultWarn.png)
 
-```
+```javascript
 logger.error('This is an error');
 logger.error('foo', 'bar');
 ```
 
 ![logger.error()](./assets/defaultError.png)
 
-```
+```javascript
 logger.info('For your information');
 logger.info('foo', 'bar');
 ```
 
 ![logger.info()](./assets/defaultInfo.png)
 
-```
+```javascript
 logger.success('This is a success');
 logger.success('foo', 'bar');
 ```
 
 ![logger.success()](./assets/defaultSuccess.png)
 
-```
+```javascript
 logger.debug('This is a debugging message');
 logger.debug('foo', 'bar');
 ```
 
 ![logger.debug()](./assets/defaultDebug.png)
 
-```
+```javascript
 logger.assert('This is an assertion');
 logger.assert('foo', 'bar');
 ```
@@ -126,7 +126,7 @@ logger.assert('foo', 'bar');
 | useTimestamp |                                                                                                      <table><tbody><tr><td>group</td><td>`boolean`</td></tr><tr><td>single</td><td>`boolean`</td></tr></tbody></table>                                                                                                      |                                                                                                                                                                                                                                      <table><tbody><tr><td>group</td><td>`false`</td></tr><tr><td>single</td><td>`false`</td></tr></tbody></table> |
 | groupTitles  | <table><tbody><tr><td>log</td><td>`string`</td></tr><tr><td>warning</td><td>`string`</td></tr><tr><td>error</td><td>`string`</td></tr><tr><td>info</td><td>`string`</td></tr><tr><td>success</td><td>`string`</td></tr><tr><td>debug</td><td>`string`</td></tr><tr><td>assertion</td><td>`string`</td></tr></tbody></table> | <table><tbody><tr><td>log</td><td>`"LOGS"`</td></tr><tr><td>warning</td><td>`"WARNINGS"`</td></tr><tr><td>error</td><td>`"ERRORS"`</td></tr><tr><td>info</td><td>`""INFORMATION`</td></tr><tr><td>success</td><td>`"SUCCESS"`</td></tr><tr><td>debug</td><td>`"DEBUG"`</td></tr><tr><td>assertion</td><td>`"ASSERTIONS"`</td></tr></tbody></table> |
 
-```
+```javascript
 const logger = new NodeLogger({
   useIcons: false,
   useTimestamp: { group: true, single: true },
