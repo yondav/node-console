@@ -95,12 +95,16 @@ else if (!compareVersions()) {
 }
 // If all checks pass, create a release commit and update version
 else {
-  execSync(
-    `git add -A && git commit --allow-empty -m "chore: release ${releaseVersion}"`,
-    {
-      cwd: resolve(__dirname, '..'),
-    }
-  );
+  // execSync(
+  //   `git add -A && git commit --allow-empty -m "chore: release ${releaseVersion}"`,
+  //   {
+  //     cwd: resolve(__dirname, '..'),
+  //   }
+  // );
+
+  execSync(`git tag -a v${releaseVersion} -m "chore: release ${releaseVersion}"`, {
+    cwd: resolve(__dirname, '..'),
+  });
 
   execSync(`git push origin main --follow-tags`, {
     cwd: resolve(__dirname, '..'),
