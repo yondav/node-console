@@ -42,9 +42,15 @@ if (!releaseVersion) {
   // Check if it's running in GitHub Actions
   if (process.env.GITHUB_ACTIONS) {
     // Extract tag name from GITHUB_REF
+    console.log('GITHUB_REF:', process.env.GITHUB_REF);
+
     const isTag = process.env.GITHUB_REF?.startsWith('refs/tags/');
+    console.log('isTag:', isTag);
+
     if (isTag) {
       const tag = process.env.GITHUB_REF?.replace('refs/tags/', '');
+      console.log('Tag:', tag);
+
       execSync(`npm version ${tag} -m "chore: release ${tag}"`, {
         cwd: resolve(__dirname, '..'),
       });
