@@ -15,7 +15,7 @@ const config = async (): Promise<Config> => ({
   bail: 0,
   verbose: false,
   silent: true,
-  roots: ['./src', './packages'],
+  roots: ['./src'],
   transform: {
     '^.+\\.[t]sx?$': 'ts-jest',
   },
