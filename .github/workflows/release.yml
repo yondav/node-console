@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - master
+      - main
 name: release-please
 jobs:
   release-please:
@@ -12,7 +12,7 @@ jobs:
         with:
           release-type: node
           package-name: pretty-node-logs
-          default-branch: master
+          default-branch: main
           pull-request-header: New release
       # The logic below handles the npm publication:
       - if: ${{ steps.release.outputs.release_created }}
