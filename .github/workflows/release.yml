@@ -1,40 +1,30 @@
-name: Release
-
 on:
   push:
-    tags:
-      - '*'
-
+    branches:
+      - master
+name: release-please
 jobs:
-  release:
+  release-please:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - id: release
+        uses: google-github-actions/release-please-action@v3
         with:
-          node-version: '18'
-
-      - name: Install Dependencies
-        run: yarn install
-
-      - name: Build Dist Directory
-        run: yarn run build
-
-      - name: Set Git Identity
-        run: |
-          git config --global user.email "actions@github.com"
-          git config --global user.name "GitHub Actions"
-
-      - name: Run Release Script
-        run: yarn run release
+          release-type: node
+          package-name: pretty-node-logs
+          default-branch: master
+          pull-request-header: New release
+      # The logic below handles the npm publication:
+      - if: ${{ steps.release.outputs.release_created }}
+        uses: actions/checkout@v2
+      - if: ${{ steps.release.outputs.release_created }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+          registry-url: 'https://registry.npmjs.org'
+      - if: ${{ steps.release.outputs.release_created }}
+        run: yarn install --frozen-lockfile
+      - if: ${{ steps.release.outputs.release_created }}
+        run: npm publish --access public
         env:
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-
-      - name: Publish to npm
-        run: npm publish
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+          NPM_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
