@@ -51,25 +51,23 @@ if (!releaseVersion) {
       const tag = process.env.GITHUB_REF?.replace('refs/tags/', '');
       console.log('Tag:', tag);
 
-      // Commit the changes
-      execSync(`git add -A && git commit -m "chore: release ${tag}"`, {
-        cwd: resolve(__dirname, '..'),
-      });
-
       // Update package.json version
       execSync(`npm version ${tag} --allow-same-version`, {
         cwd: resolve(__dirname, '..'),
       });
+      console.log('Updated package.json version');
 
       // Generate the changelog
       execSync(`yarn run changelog`, {
         cwd: resolve(__dirname, '..'),
       });
+      console.log('Changelog generated');
 
       // Commit the version and changelog changes
       execSync(`git add -A && git commit -m "chore: release ${tag}"`, {
         cwd: resolve(__dirname, '..'),
       });
+      console.log('changes comitted');
     }
   } else
     console.error(
