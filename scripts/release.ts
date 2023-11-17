@@ -51,6 +51,12 @@ if (!releaseVersion) {
       const tag = process.env.GITHUB_REF?.replace('refs/tags/', '');
       console.log('Tag:', tag);
 
+      // Commit the version and changelog changes
+      execSync(`git add -A && git commit -m "chore: release ${tag}"`, {
+        cwd: resolve(__dirname, '..'),
+      });
+      console.log('preversioning commit to clean working directory complete');
+
       // Update package.json version
       execSync(`npm version ${tag} --allow-same-version`, {
         cwd: resolve(__dirname, '..'),
