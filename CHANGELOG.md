@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/yondav/node-console/compare/v1.0.0...v1.0.1) (2023-11-17)
+
+
+### Miscellaneous Chores
+
+* release 1.0.1 ([3de0115](https://github.com/yondav/node-console/commit/3de0115b02fc36a5acd1ae39c0177ea478d35af5))
+
 ## 1.0.0 (2023-11-17)
 
 
