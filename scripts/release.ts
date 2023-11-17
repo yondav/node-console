@@ -14,41 +14,28 @@ function compareVersions() {
 
   const [releaseMajor, releaseMinor, releasePatch] = releaseVersion.split('.');
 
-  if (releaseMajor < currentMajor) {
-    return false;
-  }
-  if (releaseMajor > currentMajor) {
-    return true;
-  }
-  if (releaseMinor < currentMinor) {
-    return false;
-  }
-  if (releaseMinor > currentMinor) {
-    return true;
-  }
-  if (releasePatch < currentPatch) {
-    return false;
-  }
-  if (releasePatch > currentPatch) {
-    return true;
-  }
+  if (releaseMajor < currentMajor) return false;
+  if (releaseMajor > currentMajor) return true;
+  if (releaseMinor < currentMinor) return false;
+  if (releaseMinor > currentMinor) return true;
+  if (releasePatch < currentPatch) return false;
+  if (releasePatch > currentPatch) return true;
 
   return false;
 }
 
-if (!releaseVersion) {
+if (!releaseVersion)
   console.error(colors.red, 'Error: Please provide a valid version number', colors.reset);
-} else if (!validVersion.test(releaseVersion)) {
+else if (!validVersion.test(releaseVersion))
   console.error(colors.red, 'Error: Invalid version number', colors.reset);
-} else if (!compareVersions()) {
+else if (!compareVersions())
   console.error(
     colors.red,
     `Error: release version must be greater than the current version: ${currentVersion}`,
     colors.reset
   );
-} else {
+else
   execSync(
     `git commit --allow-empty -m "chore: release ${releaseVersion}" -m "Release-As: ${releaseVersion}"`,
     { cwd: resolve(__dirname, '..') }
   );
-}
