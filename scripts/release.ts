@@ -51,7 +51,13 @@ if (!releaseVersion) {
       const tag = process.env.GITHUB_REF?.replace('refs/tags/', '');
       console.log('Tag:', tag);
 
-      execSync(`npm version ${tag} -m "chore: release ${tag}"`, {
+      // Commit the changes
+      execSync(`git add -A && git commit -m "chore: release ${tag}"`, {
+        cwd: resolve(__dirname, '..'),
+      });
+
+      // Update package.json version
+      execSync(`npm version ${tag} --allow-same-version`, {
         cwd: resolve(__dirname, '..'),
       });
 
@@ -60,48 +66,30 @@ if (!releaseVersion) {
         cwd: resolve(__dirname, '..'),
       });
 
-      // Commit the changes
+      // Commit the version and changelog changes
       execSync(`git add -A && git commit -m "chore: release ${tag}"`, {
         cwd: resolve(__dirname, '..'),
       });
-
-      console.log(`Released version: ${tag}`);
-    } else {
-      console.error(
-        colors.red,
-        'Error: Please provide a valid version number',
-        colors.reset
-      );
     }
-  } else {
+  } else
     console.error(
       colors.red,
       'Error: Please provide a valid version number',
       colors.reset
     );
-  }
 }
 // Check if the release version is a valid version number
-else if (!validVersion.test(releaseVersion)) {
+else if (!validVersion.test(releaseVersion))
   console.error(colors.red, 'Error: Invalid version number', colors.reset);
-}
 // Check if the release version is greater than the current version
-else if (!compareVersions()) {
+else if (!compareVersions())
   console.error(
     colors.red,
     `Error: release version must be greater than the current version: ${currentVersion}`,
     colors.reset
   );
-}
 // If all checks pass, create a release commit and update version
 else {
-  // execSync(
-  //   `git add -A && git commit --allow-empty -m "chore: release ${releaseVersion}"`,
-  //   {
-  //     cwd: resolve(__dirname, '..'),
-  //   }
-  // );
-
   execSync(`git tag -a v${releaseVersion} -m "chore: release ${releaseVersion}"`, {
     cwd: resolve(__dirname, '..'),
   });
