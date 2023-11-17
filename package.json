@@ -1,6 +1,6 @@
 {
   "name": "pretty-node-logs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "prettier console logs for your node project",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
